@@ -1,0 +1,113 @@
+# Read the documentation: https://github.com/FriendsOfSymfony/FOSElasticaBundle/blob/master/Resources/doc/setup.md
+fos_elastica:
+  clients:
+    default: { host: '%env(resolve:ELASTIC_SEARCH_HOST)%', port: '%env(resolve:ELASTIC_SEARCH_PORT)%' }
+  indexes:
+    garage_item:
+      settings:
+        index:
+          analysis:
+            analyzer:
+              special_analyzer:
+                type: custom
+                tokenizer: whitespace
+                filter: [lowercase]
+      index_name: garage_item_%kernel.environment%_%elastic_index_suffix%
+      types:
+        garage_item:
+          properties:
+            id: { type: integer }
+            price_query: { fielddata: true, property_path: price }
+            price: { type: float }
+            type: { fielddata: true }
+            standard: ~
+            forDisabilitiesPeople: ~
+            family: ~
+            xxl: ~
+            klaus: ~
+            normal: { property_path: storageType }
+            box: { property_path: storageType }
+            garageGroup:
+              type: "object"
+              properties:
+                id: ~
+            createdAt: { type: date, store: true }
+            updatedAt: { type: date, store: true }
+            note: ~
+            number: { fielddata: true }
+            orderProducts:
+              type: "object"
+              properties:
+                reservationId: { fielddata: true, property_path: number, analyzer: special_analyzer }
+            reservationStatus: { type: integer }
+          persistence:
+            driver: orm
+            model: App\Entity\GarageItem
+            provider: ~
+            listener: ~
+            finder: ~
+            elastica_to_model_transformer:
+              ignore_missing: true
+            model_to_elastica_transformer:
+              service: App\Service\ElasticaModelTransformer\GarageItemTransformer
+            repository: App\SearchRepository\GarageItemRepository
+    garage_order_product:
+      settings:
+        index:
+          analysis:
+            analyzer:
+              email_analyzer:
+                type: custom
+                tokenizer: uax_url_email
+                filter: [lowercase, stop]
+              special_analyzer:
+                type: custom
+                tokenizer: whitespace
+                filter: [lowercase]
+      index_name: garage_order_product_%kernel.environment%_%elastic_index_suffix%
+      types:
+        garage_order_product:
+          properties:
+            id: { type: integer }
+            price_query: { fielddata: true, property_path: price }
+            price: { type: float }
+            number: { fielddata: true, analyzer: special_analyzer }
+            status: { fielddata: true }
+            related: ~
+            garageItem:
+              type: "object"
+              properties:
+                id: ~
+                item_number: { property_path: number }
+                type: { fielddata: true }
+                standard: ~
+                forDisabilitiesPeople: ~
+                family: ~
+                xxl: ~
+                klaus: ~
+                normal: { property_path: storageType }
+                box: { property_path: storageType }
+                garageGroup:
+                  type: "object"
+                  properties:
+                    id: ~
+            order:
+              type: "object"
+              properties:
+                firstName: { fielddata: true }
+                lastName: { fielddata: true, analyzer: special_analyzer }
+                phone: { fielddata: true }
+                email: { fielddata: true, analyzer: email_analyzer }
+                createdAt: { type: date, store: false, index: true }
+                clientNote: ~
+          persistence:
+            driver: orm
+            model: App\Entity\OrderProduct
+            provider: ~
+            listener: ~
+            finder: ~
+            elastica_to_model_transformer:
+              ignore_missing: true
+            model_to_elastica_transformer:
+              service: App\Service\ElasticaModelTransformer\OrderProductTransformer
+            repository: App\SearchRepository\OrderProductRepository

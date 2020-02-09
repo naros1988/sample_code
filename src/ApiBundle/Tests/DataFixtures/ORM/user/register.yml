@@ -1,0 +1,17 @@
+AppBundle\Entity\UserRegisterData:
+  user_register_data:
+    data: {street: 'xxx', town: 'lodz', number: '1A'}
+
+AppBundle\Entity\User:
+  user_admin:
+    username: test
+    email: test@test.foo
+    enabled: false
+    firstName: test
+    roles: [ROLE_USER]
+    gender: M
+    registerRequestToken: 'token'
+    registerRequestedAt: <(new \DateTime())>
+    emailConfirmed: false
+    userRegisterData: '@user_register_data'
+

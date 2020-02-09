@@ -1,0 +1,152 @@
+AppBundle\Entity\Developer:
+    developer_1:
+        name: developer
+
+AppBundle\Entity\Investment:
+    investment_1:
+        name: investment
+
+AppBundle\Entity\Community:
+    community_1:
+        name: community
+        street: ['strret_1', 'street_2']
+        city: New York
+        postalCode: 66-777
+        developer: '@developer_1'
+        investment: '@investment_1'
+        nip: 1180752907
+        regon: 5565564
+        usableArea: 1500
+        status: official
+        managed: true
+        officeAddress:
+            street: office street
+            number: 5
+            apartment_number: 12
+            postal_code: 99-887
+            city: New York
+            office_hours: 8-16
+            additional_information: test
+
+AppBundle\Entity\User:
+    user_admin:
+        username: admin
+        email: admin@test.foo
+        password: $2a$10$n86Sqj6fWfAa5rvo6sEVqe9h9.JY8p2af.AO/3okS15uP.X4nt9Oy
+        enabled: true
+        firstName: admin
+        lastName: admin
+        phone: 700000000
+        roles: [ROLE_ADMIN]
+        gender: M
+    user_admin_2:
+        username: admin2
+        email: admin2@test.foo
+        password: $2a$10$n86Sqj6fWfAa5rvo6sEVqe9h9.JY8p2af.AO/3okS15uP.X4nt9Oy
+        enabled: true
+        firstName: admin2
+        lastName: admin2
+        phone: 700000003
+        roles: [ROLE_ADMIN]
+        gender: M
+    user_warden:
+        username: warden
+        email: warden@test.foo
+        password: $2a$10$n86Sqj6fWfAa5rvo6sEVqe9h9.JY8p2af.AO/3okS15uP.X4nt9Oy
+        enabled: true
+        firstName: warden
+        lastName: warden
+        phone: 700000001
+        roles: [ROLE_WARDEN]
+        gender: M
+    user_warden_2:
+        username: warden2
+        email: warden2@test.foo
+        password: $2a$10$n86Sqj6fWfAa5rvo6sEVqe9h9.JY8p2af.AO/3okS15uP.X4nt9Oy
+        enabled: true
+        firstName: warden2
+        lastName: warden2
+        phone: 700000004
+        roles: [ROLE_WARDEN]
+        gender: M
+    user_keeper:
+        username: keeper
+        email: keeper@test.foo
+        password: $2a$10$n86Sqj6fWfAa5rvo6sEVqe9h9.JY8p2af.AO/3okS15uP.X4nt9Oy
+        enabled: true
+        firstName: keeper
+        lastName: keeper
+        phone: 700000002
+        roles: [ROLE_KEEPER]
+        gender: M
+    user_keeper_2:
+        username: keeper2
+        email: keeper2@test.foo
+        password: $2a$10$n86Sqj6fWfAa5rvo6sEVqe9h9.JY8p2af.AO/3okS15uP.X4nt9Oy
+        enabled: true
+        firstName: keeper2
+        lastName: keeper2
+        phone: 700000005
+        roles: [ROLE_KEEPER]
+        gender: M
+
+AppBundle\Entity\Building:
+    building_1:
+        community: '@community_1'
+        name: building
+
+AppBundle\Entity\Staircase:
+    staircase_1:
+        building: '@building_1'
+        street: test
+        floor: 7
+        number: 23
+
+AppBundle\Entity\Apartment:
+    apartment_1:
+        floor: 1
+        number: 1
+        staircase: '@staircase_1'
+        usableArea: 0
+        heatingArea: 0
+        occupantsNumber: 0
+        layout: layout_1
+        realEstateShare: 0
+        roomsNumber: 0
+        destiny: apartment
+    apartment_2:
+        floor: 1
+        number: 2
+        staircase: '@staircase_1'
+        usableArea: 0
+        heatingArea: 0
+        occupantsNumber: 0
+        layout: layout_1
+        realEstateShare: 0
+        roomsNumber: 0
+        destiny: apartment
+    apartment_3:
+        floor: 1
+        number: 3
+        staircase: '@staircase_1'
+        usableArea: 0
+        heatingArea: 0
+        occupantsNumber: 0
+        layout: layout_1
+        realEstateShare: 0
+        roomsNumber: 0
+        destiny: apartment
+
+AppBundle\Entity\UserHasApartment:
+    user_has_apartment_1:
+        apartment: '@apartment_1'
+        user: '@user_warden'
+        signedSince: <dateTimeBetween($startDate = "-6 days", $endDate = "-6 days", $timezone = date_default_timezone_get())>
+    user_has_apartment_2:
+        apartment: '@apartment_2'
+        user: '@user_admin'
+        signedSince: <dateTimeBetween($startDate = "-6 days", $endDate = "-6 days", $timezone = date_default_timezone_get())>
+    user_has_apartment_3:
+        apartment: '@apartment_3'
+        user: '@user_keeper'
+        signedSince: <dateTimeBetween($startDate = "-6 days", $endDate = "-6 days", $timezone = date_default_timezone_get())>

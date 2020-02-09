@@ -1,0 +1,8 @@
+{
+  "error": {
+    "detail": "Avatar nie mo\u017ce by\u0107 pusty",
+    "status": 400,
+    "type": "about:blank",
+    "title": "Bad Request"
+  }
+}
